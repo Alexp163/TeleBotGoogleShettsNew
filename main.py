@@ -9,7 +9,7 @@ from working_table import (data_collection_function, data_delivery_fuction,
                            recording_data, recording_delivery_address,
                            recording_transport_company)
 
-TOKEN = '5602947799:AAHIHYWPme7plkhgijhgfp62rtSy6rAg'
+TOKEN = 'your token bot'
 bot = telebot.TeleBot(TOKEN)
 dict_index_address = {}
 dict_customer_data = {}
@@ -115,7 +115,7 @@ def work_cabinet(
                          reply_markup=markup)
 
 
-def frequent_questions(message):
+def answers_questions(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     what_is_poizon = types.KeyboardButton('Что такое POIZON?')
     original_products_poizon = types.KeyboardButton(
@@ -184,7 +184,7 @@ def all_messages(
     elif message.text == 'Частые вопросы':
         bot.send_message(message.chat.id, 'Вы решили узнать о частых вопросах',
                          reply_markup=markup)
-        frequent_questions(message)
+        answers_questions(message)
     elif message.text == 'Почта России':
         transport_company = message.text
         recording_transport_company(user_name, transport_company)
