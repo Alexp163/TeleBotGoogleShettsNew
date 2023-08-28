@@ -3,6 +3,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
 # from  id_sheet import id_table
+<<<<<<< HEAD
 
 SCOPES: [str] = ['https://www.googleapis.com/auth/spreadsheets']
 SAMPLE_SPREADSHEET_ID: str = '1wgZRhyKNsZEXfm2fumy1xDeGi2fZa4J0w-eFx0dzu_8'
@@ -277,3 +278,5 @@ def data_delivery_fuction(user_name: str):
 
     return report2
 
+=======
+>>>>>>> origin/master
