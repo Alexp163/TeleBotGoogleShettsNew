@@ -276,3 +276,4 @@ def data_delivery_fuction(user_name: str):
                f'\n\n\n'
 
     return report2
+

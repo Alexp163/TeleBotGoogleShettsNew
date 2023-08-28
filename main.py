@@ -9,7 +9,7 @@ from working_table import (data_collection_function, data_delivery_fuction,
                            recording_data, recording_delivery_address,
                            recording_transport_company)
 
-TOKEN = 'your token bot'
+TOKEN = '6343158997:AAGPQx1S07jCKYyFZjQUM1XHr84XfdwTwZQ'
 bot = telebot.TeleBot(TOKEN)
 dict_index_address = {}
 dict_customer_data = {}
@@ -69,7 +69,7 @@ def enter_cabinet(message: telebot.types.Message):
     my_orders = types.KeyboardButton('Мои заказы')
     track_order = types.KeyboardButton('Отследить заказ')
     my_details_for_delivery = types.KeyboardButton('Мои данные для доставки')
-    goto_main_menu = types.KeyboardButton('Вернуться в основное меню')
+    goto_main_menu = types.KeyboardButton('Вернуться в главное меню')
     markup.add(my_orders, track_order, my_details_for_delivery, goto_main_menu)
     bot.send_message(message.chat.id,
                      f'Здравствуйте пользователь, {message.from_user.username}',
@@ -101,7 +101,7 @@ def work_cabinet(
     elif message.text == 'Мои данные для доставки':
         bot.send_message(message.chat.id, 'Ваши данные для доставки',
                          reply_markup=markup)
-    elif message.text == 'Вернуться в основное меню':
+    elif message.text == 'Вернуться в главное меню':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         main_menu = types.KeyboardButton('Главное меню')
         calculator = types.KeyboardButton('Калькулятор')
@@ -121,7 +121,7 @@ def answers_questions(message):
     original_products_poizon = types.KeyboardButton(
         'Товары на POIZON точно оригинал?')
     price_difference = types.KeyboardButton('Почему различаются цены?')
-    duration_delivery = types.KeyboardButton('Какая длительность доставки?')
+    duration_delivery = types.KeyboardButton('Сколько длится доставка?')
     order_payment = types.KeyboardButton('Как оплатить доставку?')
     guarantee_honesty = types.KeyboardButton(
         'Какие гарантии что вы не обманите?')
@@ -132,16 +132,18 @@ def answers_questions(message):
     transportation_selection = types.KeyboardButton(
         'Какую транспортную компанию выбрать для доставки по СНГ?')
     return_basic_manu = types.KeyboardButton('Вернуться в главное меню')
-    markup.add(what_is_poizon)
-    markup.add(original_products_poizon)
-    markup.add(price_difference)
-    markup.add(duration_delivery)
-    markup.add(order_payment)
-    markup.add(guarantee_honesty)
-    markup.add(order_tracking)
-    markup.add(exchange_goods)
-    markup.add(size_selection)
-    markup.add(delivery_address)
+    markup.add(what_is_poizon, original_products_poizon, price_difference, duration_delivery, order_payment,
+               guarantee_honesty, order_tracking,exchange_goods, exchange_goods, size_selection,
+               delivery_address)
+    # markup.add(original_products_poizon)
+    # markup.add(price_difference)
+    # markup.add(duration_delivery)
+    # markup.add(order_payment)
+    # markup.add(guarantee_honesty)
+    # markup.add(order_tracking)
+    # markup.add(exchange_goods)
+    # markup.add(size_selection)
+    # markup.add(delivery_address)
     markup.add(transportation_selection)
     markup.add(return_basic_manu)
     bot.send_message(message.chat.id, 'Выберите интересующий вас вопрос',
@@ -213,8 +215,10 @@ def all_messages(
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         enter_personal_data = types.KeyboardButton('Ввести личные данные')
         skip_data_entry = types.KeyboardButton('Пропустить ввод данных')
+        return_basic_main = types.KeyboardButton('Вернуться в главное меню')
         markup.add(enter_personal_data)
         markup.add(skip_data_entry)
+        markup.add(return_basic_main)
         bot.send_message(message.chat.id,
                          'Здравствуйте! Выберите дальнейшее действие',
                          reply_markup=markup)
@@ -238,7 +242,7 @@ def all_messages(
         bot.send_message(message.chat.id, 'Ваши данные для доставки',
                          reply_markup=markup)
         bot.send_message(message.chat.id, data_delivery)
-    elif message.text == 'Вернуться в основное меню':
+    elif message.text == 'Вернуться в главное меню':
         main_menu = types.KeyboardButton('Главное меню')
         calculator = types.KeyboardButton('Калькулятор')
         personal_account = types.KeyboardButton('Личный кабинет')
@@ -249,7 +253,65 @@ def all_messages(
         markup.add(frequent_questions)
         bot.send_message(message.chat.id, 'Вы вернулись в главное меню',
                          reply_markup=markup)
-
+    elif message.text == 'Что такое POIZON?':
+        bot.send_message(message.chat.id, 'POIZON - это крупный китайский маркетплейс. На котором можно найти все что '
+                                          'угодно, но самый большой его плюс в том, что каждый товар тщательно '
+                                          'проверяют на оригинальность и дефекты.')
+    elif message.text == 'Товары на POIZON точно оригинал?':
+        bot.send_message(message.chat.id, 'Да, ведь каждый товар проходит более 20 проверок. На каждой из стадии '
+                                          'проверки его внимательно осматривают. В случае если товар не прошел хотя бы '
+                                          'одну проверку POIZON возвращает деньги, следовательно, мы делаем возврат '
+                                          'денежных средств.'
+                                          'Если товар прошел все проверки, то на нем будет бирка POIZON, отсканировав '
+                                          'которую, можно узнать о дате проверки, информации о товаре и тд. Также в '
+                                          'коробке/пакете будет лежать сертификат POIZON который так же будет '
+                                          'гарантировать, что товар прошел все проверки')
+    elif message.text == 'Почему различаются цены?':
+        bot.send_message(message.chat.id, 'Цена ниже чем в России, потому что POIZON сотрудничает с мировыми брендами '
+                                          'напрямую, ведь у множества брендов крупные фабрики именно в Китае, это '
+                                          'позволяет сэкономить на доставке, так как товар преодолевает путь с фабрики '
+                                          'бренда до склада POIZON не пересекая границы какого-либо государства, '
+                                          'следовательно, не взимаются пошлины.'
+                                          'Цена на POIZON так же зависит от спроса на товар, если спрос большой, то и '
+                                          'цена растет. Именно поэтому цены могут колебаться раз в пару дней.')
+    elif message.text == 'Сколько длится доставка?':
+        bot.send_message(message.chat.id, 'Доставка со склада POIZON до склада в Китае зависит от выбранной вами '
+                                          'доставки(если есть выбор), в среднем ускоренная 2-3 дня, обычная 5-6 дней. '
+                                          'Со склада в Китае до Уссурийска, РФ(ближайший город от границы с Китаем) '
+                                          'доставка длится 6-8 дней, в Уссурийске сортировка 1-2 дня, и с Уссурийска '
+                                          'отправляем по всему СНГ.'
+                                          'Срок доставки с Уссурийска до вашего города зависит от выбранной вами '
+                                          'транспортной компании и отдаленности вашего города.')
+    elif message.text == 'Как оплатить доставку?':
+        bot.send_message(message.chat.id, 'Оплата происходит тремя частями:\n\n'                                    
+                                          'Первая и основная - за сам товар, чтобы его выкупить на POIZON (в качестве '
+                                          'доказательства мы присылаем чек выкупа).\n\n'
+                                          'Вторая часть - доставка до Уссурийска, она оплачивается только тогда, когда '
+                                          'взвесят ваш товар на складе в Китае.\n\n'
+                                          'Третья часть - доставка с Уссурийска до вашего города оплачивается при '
+                                          'получении в отделение транспортной компании.')
+    elif message.text == 'Какие гарантии что вы не обманите?':
+        bot.send_message(message.chat.id, 'Мы на рынке уже больше года, за это время смогли заработать хорошую репутацию. '
+                                          'Есть канал куда публикуем отзывы, к сожалению их оставляет не каждый клиент.'
+                                          'Комментарии везде открыты - мы не скрываемся, в крайнем случае можете написать '
+                                          'в наш чат, в нем находятся люди которые делали у нас заказ и не раз, они то '
+                                          'все и подтвердят.')
+    elif message.text == 'Могу ли я отследить свой заказ?':
+        bot.send_message(message.chat.id, 'Да, конечно, ваш заказ отслеживается на каждом этапе: от склада POIZON до '
+                                          'вашего города, сделать это вы можете в своем личном кабинете, нажав на кнопку'
+                                          ' «ОТСЛЕДИТЬ ЗАКАЗ»')
+    elif message.text == 'Возможно ли поменять товар?':
+        bot.send_message(message.chat.id, 'Вы можете поменять товар на следующий день после заказа. '
+                                          'Поменять или вернуть товар после получения товара, к сожалению, невозможно.')
+    elif message.text == 'Как определиться с размером?':
+        bot.send_message(message.chat.id, 'На каждый товар и бренд идет своя размерная сетка. Если вы не уверены в '
+                                          'размере, напишите менеджеру до оформления заказа, он обязательно поможет.')
+    elif message.text == 'Где я могу забрать посылку?':
+        bot.send_message(message.chat.id, 'Все заказы приходят в отделения транспортных компаний в вашем городе. '
+                                          'Мы сотрудничаем с такими компаниями как Сдек, Почта России, Боксбери. '
+                                          'Во время оформления заказа менеджер запросит все необходимые данные.')
+    elif message.text == 'Какую транспортную компанию выбрать для доставки по СНГ?':
+        bot.send_message(message.chat.id, 'Рассчитать примерную стоимость доставки вы можете в нашем калькуляторе.')
 
 def get_index_address(message: telebot.types.Message):
     """
